@@ -24,6 +24,12 @@ jobs:
           channel: 'tip'
       - name: "Check out repository code"
         uses: actions/checkout@v4
+      - name: Login to ghcr.io
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: "Start quicklab"
+        run: |
+          make -C test/quicklab start
       - name: "Cache acton stuff"
         uses: actions/cache@v4
         with:
