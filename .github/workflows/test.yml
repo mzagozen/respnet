@@ -21,6 +21,11 @@ jobs:
     env:
       IMAGE_PATH: ${{ vars.IMAGE_PATH }}
     steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          detached: true
+          limit-access-to-actor: true
       - uses: actonlang/setup-acton@v1
         with:
           channel: 'tip'
