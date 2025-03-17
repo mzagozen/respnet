@@ -51,5 +51,9 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: "Start quicklab"
         run: |
-          make -C test/quicklab start
-          docker logs respnet-quicklab-ams-core-1
+          make -C test/quicklab start wait
+      - name: "Configure quicklab"
+        run: |
+      - name: "Run quicklab tests"
+        run: |
+          timeout 120 bash -c 'until make -C test/quicklab test-ping; do echo "Retrying..."; sleep 2; done'
