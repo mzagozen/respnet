@@ -32,6 +32,7 @@ jobs:
       - name: "Start quicklab"
         run: |
           make -C test/quicklab start
+          docker logs respnet-quicklab-ams-core-1
       - name: "Cache acton stuff"
         uses: actions/cache@v4
         with:
