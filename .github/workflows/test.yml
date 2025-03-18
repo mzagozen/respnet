@@ -73,7 +73,11 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: "Start quicklab"
         run: |
-          make -C test/${{ matrix.TESTENV }} start wait
+          if [ "${{ matrix.TESTENV }}" = "quicklab" ]; then
+            make -C test/${{ matrix.TESTENV }} start wait WAIT=240
+          else
+            make -C test/${{ matrix.TESTENV }} start wait
+          fi
       - name: "Configure quicklab"
         run: |
           make -C test/${{ matrix.TESTENV }} copy run-and-configure
