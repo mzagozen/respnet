@@ -53,11 +53,6 @@ jobs:
           # cRPD
           sudo apt-get install linux-modules-extra-$(uname -r)
           sudo modprobe mpls_router mpls_gso vrf
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          detached: true
-          limit-access-to-actor: true
       - uses: actonlang/setup-acton@v1
         with:
           channel: 'tip'
@@ -84,3 +79,9 @@ jobs:
       - name: "Run quicklab tests"
         run: |
           timeout 240s bash -c 'until make -C test/${{ matrix.TESTENV }} test; do echo "Retrying..."; sleep 2; done'
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
+        with:
+          detached: true
+          limit-access-to-actor: true
