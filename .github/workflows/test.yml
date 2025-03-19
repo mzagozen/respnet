@@ -23,7 +23,7 @@ jobs:
     runs-on: ${{ matrix.arch == 'x86_64' && 'ubuntu-24.04' || 'ubuntu-24.04-arm' }}
     steps:
       - id: setup-acton
-        uses: actonlang/setup-acton@v1
+        uses: mzagozen/setup-acton@main
         with:
           channel: 'tip'
       - name: "Check out repository code"
